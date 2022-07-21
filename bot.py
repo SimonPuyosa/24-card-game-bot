@@ -1,6 +1,9 @@
 import re
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import logging
+import os
+import telegram
+from telegram import InlineKeyboardMarkup, InlineKeyboardButton
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -31,13 +34,23 @@ def error(bot, update, error):
     logger.warning('Update "%s" caused error "%s"', update, error)
 
 
-def main():
-    """Start the bot."""
-    # Create the EventHandler and pass it your bot's token.
-    updater = Updater(token)
+def handle_start(update, context):
+    update.message.reply_text(text='Hello')
 
-    # Get the dispatcher to register handlers
+
+if __name__ == '__main__':
+    token = os.environ['TOKEN']
+
+    bot = telegram.Bot(token=token)
+
+    updater = Updater(token=token, use_context=True)
+
     dp = updater.dispatcher
+    dp.add_handler(
+        CommandHandler('start', handle_start)
+    )
+
+    print(f'running at @{bot.username}')
 
     # on different commands - answer in Telegram
     dp.add_handler(CommandHandler("start", start))
@@ -57,11 +70,6 @@ def main():
     # start_polling() is non-blocking and will stop the bot gracefully.
     updater.idle()
 
-
-if __name__ == '__main__':
-    main()
-
-token = "5332350741:AAGCYaClc-kxCZmCyOrXYbhD64LpUg1Kh7E"
 
 def operacion(numero: int, cartas4: list[int], operaciones: list[int]):
     result = cartas4[0]
