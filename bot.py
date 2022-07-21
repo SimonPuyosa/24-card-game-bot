@@ -26,7 +26,7 @@ def funcion(update, context):
 
     user_id = update.effective_user['id']
     text = update.message.text
-    context.bot.sendMessage(chat_id= user_id, text = programa(text))
+    context.bot.sendMessage(chat_id= user_id, text = text)
     for i in range(0, 10):
         context.bot.sendMessage(chat_id=user_id, text=text + str(i))
 
