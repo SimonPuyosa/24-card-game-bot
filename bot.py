@@ -50,9 +50,9 @@ def operacion(numero: int, cartas4: list[int], operaciones: list[int]) -> str:
             ops += ["/"]
     if result == numero and len(ops) == 3:
         if ops[1] == "/":
-            return f'El resultado es (({cartas4[2]} {ops[1]} ({cartas4[0]} {ops[0]} {cartas4[1]})) {ops[2]} {cartas4[3]})'
+            return f'The result is: ({cartas4[2]} {ops[1]} ({cartas4[0]} {ops[0]} {cartas4[1]})) {ops[2]} {cartas4[3]}'
         else:
-            return f'El resultado es ((({cartas4[0]} {ops[0]} {cartas4[1]}) {ops[1]} {cartas4[2]}) {ops[2]} {cartas4[3]})'
+            return f'The result is: (({cartas4[0]} {ops[0]} {cartas4[1]}) {ops[1]} {cartas4[2]}) {ops[2]} {cartas4[3]}'
 
     result = cartas4[0]
     ops = []
@@ -74,7 +74,7 @@ def operacion(numero: int, cartas4: list[int], operaciones: list[int]) -> str:
             result //= cartas4[i + 1]
             ops += ["/"]
     if result == numero and len(ops) == 3:
-        return f'El resultado es (({cartas4[2]} {ops[1]} ({cartas4[1]} {ops[0]} {cartas4[0]})) {ops[2]} {cartas4[3]})'
+        return f'The result is: ({cartas4[2]} {ops[1]} ({cartas4[1]} {ops[0]} {cartas4[0]})) {ops[2]} {cartas4[3]}'
 
     result = cartas4[0]
     ops = []
@@ -98,14 +98,14 @@ def operacion(numero: int, cartas4: list[int], operaciones: list[int]) -> str:
             result = cartas4[i + 1] // result
             ops += ["/"]
     if result == numero and len(ops) == 3:
-        return f'El resultado es ((({cartas4[0]} {ops[0]} {cartas4[1]}) {ops[1]} {cartas4[2]}) {ops[2]} {cartas4[3]})'
+        return f'The result is: (({cartas4[0]} {ops[0]} {cartas4[1]}) {ops[1]} {cartas4[2]}) {ops[2]} {cartas4[3]}'
 
     return 'no'
 
 def parse_message(message) -> bool:
     pattern = r'[0-9]+[ ][0-9]+[ ][0-9]+[ ][0-9]+'
     ticker = re.findall(pattern, message)
-    
+
     if ticker:
         return True
     else:
@@ -130,16 +130,16 @@ def prueba(numero: int, cartas3: list[int], operaciones: list[int]) -> str:
 def programa(cartas) -> str:
     numero = 24
     if not parse_message(cartas):
-        return "Datos erroneos"
+        return "Input data error"
 
     cartas = cartas.split()
     if len(cartas) > 4:
-        return "Datos erroneos"
-    
+        return "Input data Error"
+
     cartas2 = [int(x) for x in cartas]
     result = False
     i = j = k = 0
-    
+
     while not result and i < 4:
         while not result and j < 4:
             while not result and k < 4:
@@ -153,7 +153,7 @@ def programa(cartas) -> str:
         j = 0
 
     if not result:
-        return "No se encontro resultado"
+        return "There is not a possible result"
 
 
 
@@ -169,7 +169,10 @@ logger = logging.getLogger(__name__)
 
 def help(update, context):
     """Send a message when the command /help is issued."""
-    update.message.reply_text('Help!')
+    update.message.reply_text(text="This is a 24 card game solver. \nIf you do not know the game you can learn it here: https://en.wikipedia.org/wiki/24_(puzzle) "
+                                   "\nTo see if it is possible to make 24 with 4 numbers/cards please put 4 numbers separating them with a space ' ' "
+                                   "\nDo not use negative numbers or lettter, instead use A = 1, J = 11, Q = 12, K = 13"
+                                   "\nExample: '6 5 2 9' Resulting: 'The result is: ((6 * 5) / 2) + 9'")
 
 
 def funcion(update, context):
@@ -180,13 +183,16 @@ def funcion(update, context):
     context.bot.sendMessage(chat_id=user_id, text=text)
 
 
-def error(update, error, bot):
+def error(update, context):
     """Log Errors caused by Updates."""
-    logger.warning('Update "%s" caused error "%s"', update, error)
+    update.message.reply_text('If you found any errors in the Bot or a combination with a solution that the bot did not found, you can communicate them to @arabekaboom')
 
 
 def handle_start(update, context):
-    update.message.reply_text(text='Hello')
+    update.message.reply_text(text="This is a 24 card game solver. \nIf you do not know the game you can learn it here: https://en.wikipedia.org/wiki/24_(puzzle) "
+                                   "\nTo see if it is possible to make 24 with 4 numbers/cards please put 4 numbers separating them with a space ' ' "
+                                   "\nDo not use negative numbers or lettter, instead use A = 1, J = 11, Q = 12, K = 13"
+                                   "\nExample: '6 5 2 9' Resulting: 'The result is: ((6 * 5) / 2) + 9'")
 
 if __name__ == '__main__':
     token = os.environ['TOKEN']
@@ -202,12 +208,10 @@ if __name__ == '__main__':
 
     # on different commands - answer in Telegram
     dp.add_handler(CommandHandler("help", help))
+    dp.add_handler(CommandHandler("error", error))
 
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.text, funcion))
-
-    # log all errors
-    dp.add_error_handler(error)
 
     # Start the Bot
     updater.start_polling()
