@@ -123,6 +123,7 @@ def programa(cartas) -> str:
     numero = 24
     if not parse_message(cartas):
         return "Input data error"
+    temp = cartas
 
     cartas = cartas.split()
     if len(cartas) > 4:
@@ -152,7 +153,7 @@ def programa(cartas) -> str:
         j = 0
 
     if not result:
-        return "There is not a possible result"
+        return f"There is not possible to get 24 with: {temp}"
 
 
 
