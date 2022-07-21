@@ -102,10 +102,10 @@ def operacion(numero: int, cartas4: list[int], operaciones: list[int]) -> str:
 
     return 'no'
 
-def parse_message(message, user_id, context) -> bool:
+def parse_message(message) -> bool:
     pattern = r'[0-9]+[ ][0-9]+[ ][0-9]+[ ][0-9]+'
     ticker = re.findall(pattern, message)
-    context.bot.sendMessage(chat_id= user_id, text = str(ticker))
+    
     if ticker:
         return True
     else:
@@ -127,22 +127,19 @@ def prueba(numero: int, cartas3: list[int], operaciones: list[int]) -> str:
     return 'no'
 
 
-def programa(cartas, user_id, context) -> str:
-    context.bot.sendMessage(chat_id= user_id, text = cartas)
+def programa(cartas) -> str:
     numero = 24
-    if not parse_message(cartas, user_id, context):
+    if not parse_message(cartas):
         return "Datos erroneos"
-
-    context.bot.sendMessage(chat_id= user_id, text = "1")
 
     cartas = cartas.split()
     if len(cartas) > 4:
         return "Datos erroneos"
-    context.bot.sendMessage(chat_id= user_id, text = "2")
+    
     cartas2 = [int(x) for x in cartas]
     result = False
     i = j = k = 0
-    context.bot.sendMessage(chat_id= user_id, text = "3")
+    
     while not result and i < 4:
         while not result and j < 4:
             while not result and k < 4:
@@ -157,7 +154,7 @@ def programa(cartas, user_id, context) -> str:
 
     if not result:
         return "No se encontro resultado"
-    
+
 
 
 # Enable logging
@@ -172,18 +169,14 @@ logger = logging.getLogger(__name__)
 
 def help(update, context):
     """Send a message when the command /help is issued."""
-    user_id = update.effective_user['id']
-    #update.message.reply_text('Help!')
-    update.message.reply_text(user_id)
+    update.message.reply_text('Help!')
 
 
 def funcion(update, context):
     """Echo the user message."""
 
     user_id = update.effective_user['id']
-    text = update.message.text
-    context.bot.sendMessage(chat_id= user_id, text = text)
-    text = programa(text, user_id, context)
+    text = programa(update.message.text)
     context.bot.sendMessage(chat_id=user_id, text=text)
 
 
@@ -193,11 +186,7 @@ def error(update, error, bot):
 
 
 def handle_start(update, context):
-    #update.message.reply_text(text='Hello')
-    user_id = update.effective_user['id']
-    text = str(programa("2 3 4 5", user_id, context))
-    context.bot.sendMessage(chat_id= user_id, text = text)
-
+    update.message.reply_text(text='Hello')
 
 if __name__ == '__main__':
     token = os.environ['TOKEN']
@@ -210,8 +199,6 @@ if __name__ == '__main__':
     dp.add_handler(
         CommandHandler('start', handle_start)
     )
-
-    print(f'running at @{bot.username}')
 
     # on different commands - answer in Telegram
     dp.add_handler(CommandHandler("help", help))
