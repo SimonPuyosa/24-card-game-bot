@@ -26,9 +26,9 @@ def funcion(update, context):
 
     user_id = update.effective_user['id']
     text = update.message.text
-    context.bot.sendMessage(chat_id= user_id, text = text + "1")
-    text2= programa(update.message.text)
-    update.message.reply_text(text + "2")
+    context.bot.sendMessage(chat_id= user_id, text = programa(text))
+    for i in range(0, 10):
+        context.bot.sendMessage(chat_id=user_id, text=text + str(i))
 
 
 def error(update, error, bot):
@@ -38,7 +38,8 @@ def error(update, error, bot):
 
 def handle_start(update, context):
     #update.message.reply_text(text='Hello')
-    update.message.reply_text(text=str(programa("2 3 4 5")))
+    user_id = update.effective_user['id']
+    context.bot.sendMessage(chat_id= user_id, text = str(programa("2 3 4 5")))
 
 
 if __name__ == '__main__':
