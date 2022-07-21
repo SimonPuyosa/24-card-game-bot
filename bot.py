@@ -27,8 +27,7 @@ def funcion(update, context):
     user_id = update.effective_user['id']
     text = update.message.text
     context.bot.sendMessage(chat_id= user_id, text = text)
-    for i in range(0, 10):
-        context.bot.sendMessage(chat_id=user_id, text=text + str(i))
+    programa(text, user_id, context)
 
 
 def error(update, error, bot):
@@ -39,7 +38,7 @@ def error(update, error, bot):
 def handle_start(update, context):
     #update.message.reply_text(text='Hello')
     user_id = update.effective_user['id']
-    context.bot.sendMessage(chat_id= user_id, text = str(programa("2 3 4 5")))
+    context.bot.sendMessage(chat_id= user_id, text = str(programa("2 3 4 5", user_id, context)))
 
 
 if __name__ == '__main__':
@@ -172,15 +171,17 @@ def operacion(numero: int, cartas4: list[int], operaciones: list[int]) -> str:
 
     return 'no'
 
-def parse_message(message) -> bool:
+def parse_message(message, user_id, context) -> bool:
     pattern = r'[0-9]+[ ][0-9]+[ ][0-9]+[ ][0-9]+'
     ticker = re.findall(pattern, message)
+    context.bot.sendMessage(chat_id= user_id, text = str(ticker))
     if ticker:
         return True
     else:
         return False
 
 def prueba(numero: int, cartas3: list[int], operaciones: list[int]) -> str:
+    
     for i in range(0, 4):
         for j in range(0, 4):
             if i == j:
@@ -195,17 +196,22 @@ def prueba(numero: int, cartas3: list[int], operaciones: list[int]) -> str:
     return 'no'
 
 
-def programa(cartas) -> str:
+def programa(cartas, user_id, context) -> str:
+    context.bot.sendMessage(chat_id= user_id, text = cartas)
     numero = 24
-    if not parse_message(cartas):
+    if not parse_message(cartas, user_id, context):
         return "Datos erroneos"
+    
+    context.bot.sendMessage(chat_id= user_id, text = "1")
 
     cartas = cartas.split()
     if len(cartas) > 4:
         return "Datos erroneos"
+    context.bot.sendMessage(chat_id= user_id, text = "2")
     cartas2 = [int(x) for x in cartas]
     result = False
     i = j = k = 0
+    context.bot.sendMessage(chat_id= user_id, text = "3")
     while not result and i < 4:
         while not result and j < 4:
             while not result and k < 4:
