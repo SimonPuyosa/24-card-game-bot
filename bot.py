@@ -16,15 +16,19 @@ logger = logging.getLogger(__name__)
 
 def help(update, context):
     """Send a message when the command /help is issued."""
-    update.message.reply_text('Help!')
+    user_id = update.effective_user['id']
+    #update.message.reply_text('Help!')
+    update.message.reply_text(user_id)
 
 
 def funcion(update, context):
     """Echo the user message."""
-    #update.message.reply_text(programa(update.message.text))
+
     user_id = update.effective_user['id']
     text = update.message.text
     context.bot.sendMessage(chat_id= user_id, text = programa(text))
+    text2= programa(update.message.text)
+    update.message.reply_text(text2)
 
 
 def error(update, error, bot):
@@ -33,7 +37,8 @@ def error(update, error, bot):
 
 
 def handle_start(update, context):
-    update.message.reply_text(text='Hello')
+    #update.message.reply_text(text='Hello')
+    update.message.reply_text(programa("2 3 4 5"))
 
 
 if __name__ == '__main__':
