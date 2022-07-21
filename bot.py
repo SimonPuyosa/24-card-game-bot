@@ -138,7 +138,10 @@ def programa(cartas) -> str:
 
     cartas2 = []
     for x in cartas:
-        cartas2 += [int(x)]
+        try:
+            cartas2 += [int(x)]
+        except Exception:
+            return "Input Data Error"
         if int(x) == 0:
             return "Input Data error"
     result = False
@@ -175,7 +178,7 @@ def help(update, context):
     """Send a message when the command /help is issued."""
     update.message.reply_text(text="This is a 24 card game solver. \nIf you do not know the game you can learn it here: https://en.wikipedia.org/wiki/24_(puzzle) "
                                    "\nTo see if it is possible to make 24 with 4 numbers/cards please put 4 numbers separating them with a space ' '."
-                                   "\nDo not use letters or no positive numbers, instead of the letter use A = 1, J = 11, Q = 12, K = 13."
+                                   "\nDo not use letters or no positive numbers, instead of the letters use A = 1, J = 11, Q = 12, K = 13."
                                    "\nExample: '7 1 8 11' Resulting: 'The result is: (11 - (1 + 7)) * 8'")
 
 
@@ -195,7 +198,7 @@ def error(update, context):
 def handle_start(update, context):
     update.message.reply_text(text="This is a 24 card game solver. \nIf you do not know the game you can learn it here: https://en.wikipedia.org/wiki/24_(puzzle) "
                                    "\nTo see if it is possible to make 24 with 4 numbers/cards please put 4 numbers separating them with a space ' '."
-                                   "\nDo not use letters or no positive numbers, instead of the letter use A = 1, J = 11, Q = 12, K = 13."
+                                   "\nDo not use letters or no positive numbers, instead of the letters use A = 1, J = 11, Q = 12, K = 13."
                                    "\nExample: '7 1 8 11' Resulting: 'The result is: (11 - (1 + 7)) * 8'")
 
 if __name__ == '__main__':
