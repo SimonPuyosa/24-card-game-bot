@@ -4,75 +4,6 @@ import logging
 import os
 import telegram
 
-# Enable logging
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                    level=logging.INFO)
-
-logger = logging.getLogger(__name__)
-
-
-# Define a few command handlers. These usually take the two arguments bot and
-# update. Error handlers also receive the raised TelegramError object in error.
-
-def help(update, context):
-    """Send a message when the command /help is issued."""
-    user_id = update.effective_user['id']
-    #update.message.reply_text('Help!')
-    update.message.reply_text(user_id)
-
-
-def funcion(update, context):
-    """Echo the user message."""
-
-    user_id = update.effective_user['id']
-    text = update.message.text
-    context.bot.sendMessage(chat_id= user_id, text = text)
-    programa(text, user_id, context)
-
-
-def error(update, error, bot):
-    """Log Errors caused by Updates."""
-    logger.warning('Update "%s" caused error "%s"', update, error)
-
-
-def handle_start(update, context):
-    #update.message.reply_text(text='Hello')
-    user_id = update.effective_user['id']
-    context.bot.sendMessage(chat_id= user_id, text = str(programa("2 3 4 5", user_id, context)))
-
-
-if __name__ == '__main__':
-    token = os.environ['TOKEN']
-
-    bot = telegram.Bot(token=token)
-
-    updater = Updater(token=token, use_context=True)
-
-    dp = updater.dispatcher
-    dp.add_handler(
-        CommandHandler('start', handle_start)
-    )
-
-    print(f'running at @{bot.username}')
-
-    # on different commands - answer in Telegram
-    dp.add_handler(CommandHandler("help", help))
-
-    # on noncommand i.e message - echo the message on Telegram
-    dp.add_handler(MessageHandler(Filters.text, funcion))
-
-    # log all errors
-    dp.add_error_handler(error)
-
-    # Start the Bot
-    updater.start_polling()
-
-    # Run the bot until you press Ctrl-C or the process receives SIGINT,
-    # SIGTERM or SIGABRT. This should be used most of the time, since
-    # start_polling() is non-blocking and will stop the bot gracefully.
-    updater.idle()
-
-
 def operacion(numero: int, cartas4: list[int], operaciones: list[int]) -> str:
     result = cartas4[0]
     ops = []
@@ -181,7 +112,7 @@ def parse_message(message, user_id, context) -> bool:
         return False
 
 def prueba(numero: int, cartas3: list[int], operaciones: list[int]) -> str:
-    
+
     for i in range(0, 4):
         for j in range(0, 4):
             if i == j:
@@ -201,7 +132,7 @@ def programa(cartas, user_id, context) -> str:
     numero = 24
     if not parse_message(cartas, user_id, context):
         return "Datos erroneos"
-    
+
     context.bot.sendMessage(chat_id= user_id, text = "1")
 
     cartas = cartas.split()
@@ -226,3 +157,75 @@ def programa(cartas, user_id, context) -> str:
 
     if not result:
         return "No se encontro resultado"
+    
+
+
+# Enable logging
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                    level=logging.INFO)
+
+logger = logging.getLogger(__name__)
+
+
+# Define a few command handlers. These usually take the two arguments bot and
+# update. Error handlers also receive the raised TelegramError object in error.
+
+def help(update, context):
+    """Send a message when the command /help is issued."""
+    user_id = update.effective_user['id']
+    #update.message.reply_text('Help!')
+    update.message.reply_text(user_id)
+
+
+def funcion(update, context):
+    """Echo the user message."""
+
+    user_id = update.effective_user['id']
+    text = update.message.text
+    context.bot.sendMessage(chat_id= user_id, text = text)
+    text = programa(text, user_id, context)
+    context.bot.sendMessage(chat_id=user_id, text=text)
+
+
+def error(update, error, bot):
+    """Log Errors caused by Updates."""
+    logger.warning('Update "%s" caused error "%s"', update, error)
+
+
+def handle_start(update, context):
+    #update.message.reply_text(text='Hello')
+    user_id = update.effective_user['id']
+    text = str(programa("2 3 4 5", user_id, context))
+    context.bot.sendMessage(chat_id= user_id, text = text)
+
+
+if __name__ == '__main__':
+    token = os.environ['TOKEN']
+
+    bot = telegram.Bot(token=token)
+
+    updater = Updater(token=token, use_context=True)
+
+    dp = updater.dispatcher
+    dp.add_handler(
+        CommandHandler('start', handle_start)
+    )
+
+    print(f'running at @{bot.username}')
+
+    # on different commands - answer in Telegram
+    dp.add_handler(CommandHandler("help", help))
+
+    # on noncommand i.e message - echo the message on Telegram
+    dp.add_handler(MessageHandler(Filters.text, funcion))
+
+    # log all errors
+    dp.add_error_handler(error)
+
+    # Start the Bot
+    updater.start_polling()
+
+    # Run the bot until you press Ctrl-C or the process receives SIGINT,
+    # SIGTERM or SIGABRT. This should be used most of the time, since
+    # start_polling() is non-blocking and will stop the bot gracefully.
+    updater.idle()
