@@ -26,9 +26,9 @@ def funcion(update, context):
 
     user_id = update.effective_user['id']
     text = update.message.text
-    context.bot.sendMessage(chat_id= user_id, text = text)
+    context.bot.sendMessage(chat_id= user_id, text = text + "1")
     text2= programa(update.message.text)
-    update.message.reply_text(text)
+    update.message.reply_text(text + "2")
 
 
 def error(update, error, bot):
@@ -38,7 +38,7 @@ def error(update, error, bot):
 
 def handle_start(update, context):
     #update.message.reply_text(text='Hello')
-    update.message.reply_text(programa("2 3 4 5"))
+    update.message.reply_text(text=str(programa("2 3 4 5")))
 
 
 if __name__ == '__main__':
@@ -169,7 +169,7 @@ def operacion(numero: int, cartas4: list[int], operaciones: list[int]) -> str:
     if result == numero and len(ops) == 3:
         return f'El resultado es ((({cartas4[0]} {ops[0]} {cartas4[1]}) {ops[1]} {cartas4[2]}) {ops[2]} {cartas4[3]})'
 
-    return ''
+    return 'no'
 
 def parse_message(message) -> bool:
     pattern = r'[0-9]+[ ][0-9]+[ ][0-9]+[ ][0-9]+'
@@ -189,9 +189,9 @@ def prueba(numero: int, cartas3: list[int], operaciones: list[int]) -> str:
                     continue
                 l = 6 - i - j - k
                 salida = operacion(numero, [cartas3[i], cartas3[j], cartas3[k], cartas3[l]], operaciones)
-                if salida != '':
+                if salida != 'no':
                     return salida
-    return ''
+    return 'no'
 
 
 def programa(cartas) -> str:
@@ -209,7 +209,7 @@ def programa(cartas) -> str:
         while not result and j < 4:
             while not result and k < 4:
                 salida = prueba(numero, cartas2, [i, j, k])
-                if salida != '':
+                if salida != 'no':
                     return salida
                 k += 1
             j += 1
