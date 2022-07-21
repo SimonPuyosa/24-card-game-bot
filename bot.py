@@ -20,9 +20,7 @@ def operacion(numero: int, cartas4: list[int], operaciones: list[int]) -> str:
             result *= cartas4[i + 1]
             ops += ["*"]
         else:
-            if result % cartas4[i + 1] != 0: # si se puede floats 4 / 10 + 2 * 10
-                break
-            result //= cartas4[i + 1]
+            result /= cartas4[i + 1]
             ops += ["/"]
     if result == numero and len(ops) == 3:
         return f'The result is: (({cartas4[0]} {ops[0]} {cartas4[1]}) {ops[1]} {cartas4[2]}) {ops[2]} {cartas4[3]}'
@@ -44,9 +42,7 @@ def operacion(numero: int, cartas4: list[int], operaciones: list[int]) -> str:
         else:
             if result == 0:
                 break
-            if cartas4[i + 1] % result != 0:
-                break
-            result = cartas4[i + 1] // result
+            result = cartas4[i + 1] / result
             ops += ["/"]
     if result == numero and len(ops) == 3:
         if ops[1] == "/":
@@ -69,9 +65,7 @@ def operacion(numero: int, cartas4: list[int], operaciones: list[int]) -> str:
             result *= cartas4[i + 1]
             ops += ["*"]
         else:
-            if result % cartas4[i + 1] != 0: # 7 - (11 / 5)) * 5
-                break
-            result //= cartas4[i + 1]
+            result /= cartas4[i + 1]
             ops += ["/"]
     if result == numero and len(ops) == 3:
         return f'The result is: ({cartas4[2]} {ops[1]} ({cartas4[1]} {ops[0]} {cartas4[0]})) {ops[2]} {cartas4[3]}'
@@ -93,9 +87,7 @@ def operacion(numero: int, cartas4: list[int], operaciones: list[int]) -> str:
         else:
             if result == 0:
                 break
-            if cartas4[i + 1] % result != 0:
-                break
-            result = cartas4[i + 1] // result
+            result = cartas4[i + 1] / result
             ops += ["/"]
     if result == numero and len(ops) == 3:
         return f'The result is: (({cartas4[0]} {ops[0]} {cartas4[1]}) {ops[1]} {cartas4[2]}) {ops[2]} {cartas4[3]}'
