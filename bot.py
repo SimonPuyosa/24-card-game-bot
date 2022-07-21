@@ -14,22 +14,18 @@ logger = logging.getLogger(__name__)
 
 # Define a few command handlers. These usually take the two arguments bot and
 # update. Error handlers also receive the raised TelegramError object in error.
-def start(bot, update):
-    """Send a message when the command /start is issued."""
-    update.message.reply_text('Hi!')
 
-
-def help(bot, update):
+def help(update, context):
     """Send a message when the command /help is issued."""
     update.message.reply_text('Help!')
 
 
-def funcion(bot, update):
+def funcion(update, context):
     """Echo the user message."""
     update.message.reply_text(programa(update.message.text))
 
 
-def error(bot, update, error):
+def error(update, error, bot):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, error)
 
@@ -53,7 +49,6 @@ if __name__ == '__main__':
     print(f'running at @{bot.username}')
 
     # on different commands - answer in Telegram
-    dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("help", help))
 
     # on noncommand i.e message - echo the message on Telegram
