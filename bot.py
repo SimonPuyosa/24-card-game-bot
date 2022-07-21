@@ -3,7 +3,6 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import logging
 import os
 import telegram
-from telegram import InlineKeyboardMarkup, InlineKeyboardButton
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -22,7 +21,10 @@ def help(update, context):
 
 def funcion(update, context):
     """Echo the user message."""
-    update.message.reply_text(programa(update.message.text))
+    #update.message.reply_text(programa(update.message.text))
+    user_id = update.effective_user['id']
+    text = update.message.text
+    context.bot.sendMessage(chat_id= user_id, text = programa(text))
 
 
 def error(update, error, bot):
