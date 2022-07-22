@@ -48,6 +48,8 @@ def operacion(numero: int, cartas4: list[int], operaciones: list[int]) -> str:
         if ops[1] == "/":
             return f'The result is: ({cartas4[2]} {ops[1]} ({cartas4[0]} {ops[0]} {cartas4[1]})) {ops[2]} {cartas4[3]}'
         else:
+            if ops[0] == '/' and ops[2] == '*':
+                return f'The result is: (({cartas4[1]} {ops[0]} {cartas4[0]}) {ops[1]} {cartas4[2]}) {ops[2]} {cartas4[3]}'
             return f'The result is: (({cartas4[0]} {ops[0]} {cartas4[1]}) {ops[1]} {cartas4[2]}) {ops[2]} {cartas4[3]}'
 
     result = cartas4[0]
