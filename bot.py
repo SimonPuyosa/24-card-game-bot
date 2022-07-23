@@ -70,6 +70,8 @@ def operacion(numero: int, cartas4: list[int], operaciones: list[int]) -> str:
             result /= cartas4[i + 1]
             ops += ["/"]
     if result == numero and len(ops) == 3:
+        if ops[0] == "/" and ops[2] == "*":
+            return f'The result is: ({cartas4[2]} {ops[1]} ({cartas4[0]} {ops[0]} {cartas4[1]})) {ops[2]} {cartas4[3]}'
         return f'The result is: ({cartas4[2]} {ops[1]} ({cartas4[1]} {ops[0]} {cartas4[0]})) {ops[2]} {cartas4[3]}'
 
     result = cartas4[0]
@@ -92,7 +94,7 @@ def operacion(numero: int, cartas4: list[int], operaciones: list[int]) -> str:
             result = cartas4[i + 1] / result
             ops += ["/"]
     if result == numero and len(ops) == 3:
-        return f'The result is: (({cartas4[0]} {ops[0]} {cartas4[1]}) {ops[1]} {cartas4[2]}) {ops[2]} {cartas4[3]}'
+        return f'The result is: ({cartas4[2]} {ops[1]} ({cartas4[1]} {ops[0]} {cartas4[0]})) {ops[2]} {cartas4[3]}'
 
     return 'no'
 
