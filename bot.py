@@ -44,13 +44,33 @@ def operacion(numero: int, cartas4: list[int], operaciones: list[int]) -> str:
                 break
             result = cartas4[i + 1] / result
             ops += ["/"]
+
     if result == numero and len(ops) == 3:
-        if ops[1] == "/":
-            return f'The result is: ({cartas4[2]} {ops[1]} ({cartas4[0]} {ops[0]} {cartas4[1]})) {ops[2]} {cartas4[3]}'
-        else:
-            if ops[0] == '/' and ops[2] == '*':
-                return f'The result is: (({cartas4[1]} {ops[0]} {cartas4[0]}) {ops[1]} {cartas4[2]}) {ops[2]} {cartas4[3]}'
-            return f'The result is: (({cartas4[0]} {ops[0]} {cartas4[1]}) {ops[1]} {cartas4[2]}) {ops[2]} {cartas4[3]}'
+        salida = f'{cartas4[0]}'
+        for i in range(0, 3):
+            if operaciones[i] == 0:
+                if i == 2:
+                    salida = f'{salida} + {cartas4[i + 1]}'
+                else:
+                    salida = f'({salida} + {cartas4[i + 1]})'
+            elif operaciones[i] == 1:
+                if i == 2:
+                    salida = f'{salida} - {cartas4[i + 1]}'
+                else:
+                    salida = f'({salida} - {cartas4[i + 1]})'
+            elif operaciones[i] == 2:
+                if i == 2:
+                    salida = f'{salida} * {cartas4[i + 1]}'
+                else:
+                    salida = f'({salida} * {cartas4[i + 1]})'
+            else:
+                if i == 2:
+                    salida = f'{cartas4[i + 1]} / {salida}'
+                else:
+                    salida = f'({cartas4[i + 1]} / {salida})'
+
+        return f'The result is: {salida}'
+
 
     result = cartas4[0]
     ops = []
@@ -69,10 +89,32 @@ def operacion(numero: int, cartas4: list[int], operaciones: list[int]) -> str:
         else:
             result /= cartas4[i + 1]
             ops += ["/"]
+
     if result == numero and len(ops) == 3:
-        if ops[0] == "/" and ops[2] == "*":
-            return f'The result is: ({cartas4[2]} {ops[1]} ({cartas4[0]} {ops[0]} {cartas4[1]})) {ops[2]} {cartas4[3]}'
-        return f'The result is: ({cartas4[2]} {ops[1]} ({cartas4[1]} {ops[0]} {cartas4[0]})) {ops[2]} {cartas4[3]}'
+        salida = f'{cartas4[0]}'
+        for i in range(0, 3):
+            if operaciones[i] == 0:
+                if i == 2:
+                    salida = f'{salida} + {cartas4[i + 1]}'
+                else:
+                    salida = f'({salida} + {cartas4[i + 1]})'
+            elif operaciones[i] == 1:
+                if i == 2:
+                    salida = f'{cartas4[i + 1]} - {salida}'
+                else:
+                    salida = f'({cartas4[i + 1]} - {salida})'
+            elif operaciones[i] == 2:
+                if i == 2:
+                    salida = f'{salida} * {cartas4[i + 1]}'
+                else:
+                    salida = f'({salida} * {cartas4[i + 1]})'
+            else:
+                if i == 2:
+                    salida = f'{salida} / {cartas4[i + 1]}'
+                else:
+                    salida = f'({salida} / {cartas4[i + 1]})'
+
+        return f'The result is: {salida}'
 
     result = cartas4[0]
     ops = []
@@ -94,7 +136,30 @@ def operacion(numero: int, cartas4: list[int], operaciones: list[int]) -> str:
             result = cartas4[i + 1] / result
             ops += ["/"]
     if result == numero and len(ops) == 3:
-        return f'The result is: ({cartas4[2]} {ops[1]} ({cartas4[1]} {ops[0]} {cartas4[0]})) {ops[2]} {cartas4[3]}'
+        salida = f'{cartas4[0]}'
+        for i in range(0, 3):
+            if operaciones[i] == 0:
+                if i == 2:
+                    salida = f'{salida} + {cartas4[i + 1]}'
+                else:
+                    salida = f'({salida} + {cartas4[i + 1]})'
+            elif operaciones[i] == 1:
+                if i == 2:
+                    salida = f'{cartas4[i + 1]} - {salida}'
+                else:
+                    salida = f'({cartas4[i + 1]} - {salida})'
+            elif operaciones[i] == 2:
+                if i == 2:
+                    salida = f'{salida} * {cartas4[i + 1]}'
+                else:
+                    salida = f'({salida} * {cartas4[i + 1]})'
+            else:
+                if i == 2:
+                    salida = f'{cartas4[i + 1]} / {salida}'
+                else:
+                    salida = f'({cartas4[i + 1]} / {salida})'
+
+        return f'The result is: {salida}'
 
     return 'no'
 
