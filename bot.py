@@ -243,8 +243,8 @@ def help(update, context):
     """Send a message when the command /help is issued."""
     update.message.reply_text(text="This is a 24 card game solver. \nIf you do not know the game you can learn it here: https://en.wikipedia.org/wiki/24_(puzzle) "
                                    "\nTo see if it is possible to make 24 with 4 numbers/cards please put 4 numbers separating them with one space ' '."
-                                   "\nDo not use letters or no positive numbers, instead of the letters use A = 1, J = 11, Q = 12, K = 13."
-                                   "\nExample: 7 1 8 11\nResulting: The result is: (11 - (1 + 7)) * 8")
+                                   "\nDo not use letters or not positive numbers, instead of the letters use A = 1, J = 11, Q = 12, K = 13."
+                                   "\nExample: 7 1 8 11\nResulting: The result is: (11 - (7 + 1)) * 8")
 
 
 def funcion(update, context):
@@ -259,12 +259,15 @@ def error(update, context):
     """Log Errors caused by Updates."""
     update.message.reply_text('If you found any error in the bot or a combination of numbers with a solution that the bot did not found, you can communicate it to @arabekaboom')
 
+def contact(update, context):
+    """Send a message when the command /contact is issued."""
+    update.message.reply_text('If you have any suggestions to improve the bot or you want to make a donation you can contact the creator of the bot via Telegram @arabekaboom')
 
 def handle_start(update, context):
     update.message.reply_text(text="This is a 24 card game solver. \nIf you do not know the game you can learn it here: https://en.wikipedia.org/wiki/24_(puzzle) "
                                    "\nTo see if it is possible to make 24 with 4 numbers/cards please put 4 numbers separating them with one space ' '."
-                                   "\nDo not use letters or no positive numbers, instead of the letters use A = 1, J = 11, Q = 12, K = 13."
-                                   "\nExample: 7 1 8 11\nResulting: The result is: (11 - (1 + 7)) * 8")
+                                   "\nDo not use letters or not positive numbers, instead of the letters use A = 1, J = 11, Q = 12, K = 13."
+                                   "\nExample: 7 1 8 11\nResulting: The result is: (11 - (7 + 1)) * 8")
 
 if __name__ == '__main__':
     token = os.environ['TOKEN']
@@ -281,6 +284,7 @@ if __name__ == '__main__':
     # on different commands - answer in Telegram
     dp.add_handler(CommandHandler("help", help))
     dp.add_handler(CommandHandler("error", error))
+    dp.add_handler(CommandHandler("contact", contact))
 
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.text, funcion))
