@@ -164,6 +164,10 @@ def operacion(numero: int, cartas4: list[int], operaciones: list[int]) -> str:
     return 'no'
 
 def parse_message(message) -> bool:
+    tickerFirstLetter = re.findall(r'[0-9]', message[0])
+    if not tickerFirstLetter:
+        return False
+
     pattern = r'[0-9]+[ ][0-9]+[ ][0-9]+[ ][0-9]+'
     ticker = re.findall(pattern, message)
 
@@ -171,22 +175,6 @@ def parse_message(message) -> bool:
         return True
     else:
         return False
-
-def prueba(numero: int, cartas3: list[int], operaciones: list[int]) -> str:
-
-    for i in range(0, 4):
-        for j in range(0, 4):
-            if i == j:
-                continue
-            for k in range(0, 4):
-                if i == k or j == k:
-                    continue
-                l = 6 - i - j - k
-                salida = operacion(numero, [cartas3[i], cartas3[j], cartas3[k], cartas3[l]], operaciones)
-                if salida != 'no':
-                    return salida
-    return 'no'
-
 
 def programa(cartas) -> str:
     numero = 24
