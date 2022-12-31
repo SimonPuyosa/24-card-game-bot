@@ -208,7 +208,9 @@ def programa(cartas) -> str:
         except Exception:
             return "Input Data Error"
         if int(x) == 0:
-            return "Input Data error"
+            return "Numbers should be grater than 0"
+        if int(x) > 999:
+            return "Numbers should not be so large"
     result = False
     i = j = k = 0
 
