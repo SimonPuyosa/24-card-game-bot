@@ -176,6 +176,21 @@ def parse_message(message) -> bool:
     else:
         return False
 
+def prueba(numero: int, cartas3: list[int], operaciones: list[int]) -> str:
+
+    for i in range(0, 4):
+        for j in range(0, 4):
+            if i == j:
+                continue
+            for k in range(0, 4):
+                if i == k or j == k:
+                    continue
+                l = 6 - i - j - k
+                salida = operacion(numero, [cartas3[i], cartas3[j], cartas3[k], cartas3[l]], operaciones)
+                if salida != 'no':
+                    return salida
+    return 'no'
+
 def programa(cartas) -> str:
     numero = 24
     if not parse_message(cartas):
