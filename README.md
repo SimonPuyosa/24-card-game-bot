@@ -5,7 +5,9 @@ This is a fully functional game card 24 bot for telegram. This bot takes  4 numb
 ## files:
 
 • runtime.txt: version of python
+
 • requirements.txt: the libraries and dependencies for the code to run
+
 • bot.py: the bot itself that makes the logging and solve the problem
 
 
