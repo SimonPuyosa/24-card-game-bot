@@ -1,6 +1,6 @@
-# game-card-24-bot
+# 24-card-game-bot
 
-This is a fully functional game card 24 bot for telegram. This bot takes  4 numbers separated by a single coma " " and look how to make 24 with that 4 numbers given. You can find the bot in telegram in @Card_24_Bot
+This is a fully functional solver of 24 card game and created as a bot for telegram. This bot takes 4 numbers separated by a single coma " " and return how to make 24 with that 4 numbers given. You can find the bot in telegram in @Card_24_Bot
 
 ## files:
 
